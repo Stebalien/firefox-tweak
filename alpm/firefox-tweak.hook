@@ -3,6 +3,7 @@ Type = File
 Operation = Install
 Operation = Upgrade
 Target = usr/lib/*/omni.ja
+Target = !usr/lib/*/*/omni.ja
 
 [Action]
 Description = Customizing firefox...
