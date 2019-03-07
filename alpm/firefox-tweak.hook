@@ -13,4 +13,4 @@ Depends = zip
 Depends = coreutils
 Depends = awk
 When = PostTransaction
-Exec = /etc/pacman.d/scripts/firefox-tweak.sh
+Exec = /usr/share/libalpm/scripts/firefox-tweak.sh
