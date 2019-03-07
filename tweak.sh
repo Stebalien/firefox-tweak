@@ -9,7 +9,7 @@
 
 set -e
 
-FILE="${1:-/usr/lib/firefox/omni.ja}"
+FILE="$(realpath "${1:-/usr/lib/firefox/omni.ja}")"
 
 optimizejars() {
     python2 /usr/lib/firefox-tweak/optimizejars.py "$@"
