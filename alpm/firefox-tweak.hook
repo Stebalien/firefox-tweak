@@ -1,0 +1,16 @@
+[Trigger]
+Type = File
+Operation = Install
+Operation = Upgrade
+Target = usr/lib/firefox/omni.ja usr/lib/firefox-developer-edition/omni.jar
+NeedsTargets = true
+
+[Action]
+Description = Customizing firefox...
+Depends = python2
+Depends = unzip
+Depends = zip
+Depends = coreutils
+Depends = awk
+When = PostTransaction
+Exec = /etc/pacman.d/scripts/firefox-tweak.sh
