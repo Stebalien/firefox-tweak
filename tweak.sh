@@ -19,7 +19,7 @@ WORKDIR="$(mktemp -d -t "firefox-tweak.XXXXXX")"
 trap "rm -r '$WORKDIR'" EXIT
 pushd "$WORKDIR" >/dev/null
 
-echo -n "Copying 'omni.ja'..."
+echo -n "Copying '$FILE'..."
 cp "$FILE" omni.ja
 echo "done"
 
