@@ -3,7 +3,6 @@ Type = File
 Operation = Install
 Operation = Upgrade
 Target = usr/lib/firefox/omni.ja usr/lib/firefox-developer-edition/omni.jar
-NeedsTargets = true
 
 [Action]
 Description = Customizing firefox...
@@ -14,3 +13,4 @@ Depends = coreutils
 Depends = awk
 When = PostTransaction
 Exec = /usr/share/libalpm/scripts/firefox-tweak.sh
+NeedsTargets
