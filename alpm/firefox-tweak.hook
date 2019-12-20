@@ -7,7 +7,7 @@ Target = !usr/lib/*/*/omni.ja
 
 [Action]
 Description = Customizing firefox...
-Depends = python2
+Depends = python3
 Depends = unzip
 Depends = zip
 Depends = coreutils

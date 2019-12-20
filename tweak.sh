@@ -12,7 +12,7 @@ set -e
 FILE="$(realpath "${1:-/usr/lib/firefox/omni.ja}")"
 
 optimizejars() {
-    python2 /usr/lib/firefox-tweak/optimizejars.py "$@"
+    python3 /usr/lib/firefox-tweak/optimizejars.py "$@"
 }
 
 WORKDIR="$(mktemp -d -t "firefox-tweak.XXXXXX")"

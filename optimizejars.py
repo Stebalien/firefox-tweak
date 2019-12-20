@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import sys, os, struct, re
 
@@ -95,14 +95,17 @@ class MyStruct:
             raise AttributeError
 
     def pack(self):
-        extra_data = ""
+        extra_data = b""
         values = []
         string_fields = self.__dict__["string_fields"]
         struct_members = self.__dict__["struct_members"]
         format = self.__dict__["format"]
         for (name,_) in format:
             if name in string_fields:
-                extra_data = extra_data + struct_members[name]
+                value = struct_members[name]
+                if isinstance(value, str):
+                    value = value.encode("utf-8")
+                extra_data = extra_data + value
             else:
                 values.append(struct_members[name]);
         return struct.pack(format_struct(format)[0], *values) + extra_data
@@ -210,7 +213,7 @@ def optimizejar(jar, outjar, inlog = None):
         out_offset = dirend.cdir_offset + dirend.cdir_size + size_of(cdir_end) - total_stripped
         outfd.seek(out_offset)
 
-    cdir_data = ""
+    cdir_data = b""
     written_count = 0
     crc_mapping = {}
     dups_found = 0
@@ -286,14 +289,14 @@ def optimizejar(jar, outjar, inlog = None):
         outfd.seek(out_offset)
         outfd.write(dirend_data)
 
-    print "Stripped %d bytes" % total_stripped
-    print "%s %d/%d in %s" % (("Ordered" if inlog is not None else "Deoptimized"),
-                              reordered_count, len(central_directory), outjar)
+    print("Stripped %d bytes" % total_stripped)
+    print("%s %d/%d in %s" % (("Ordered" if inlog is not None else "Deoptimized"),
+                              reordered_count, len(central_directory), outjar))
     outfd.close()
     return outlog
         
 if len(sys.argv) != 5:
-    print "Usage: --optimize|--deoptimize %s JAR_LOG_DIR IN_JAR_DIR OUT_JAR_DIR" % sys.argv[0]
+    print("Usage: --optimize|--deoptimize %s JAR_LOG_DIR IN_JAR_DIR OUT_JAR_DIR" % sys.argv[0])
     exit(1)
 
 jar_regex = re.compile("\\.jar?$")
@@ -322,7 +325,7 @@ def deoptimize(JAR_LOG_DIR, IN_JAR_DIR, OUT_JAR_DIR):
         outjarfile = os.path.join(OUT_JAR_DIR, jarfile) 
         logfile = os.path.join(JAR_LOG_DIR, jarfile + ".log")
         log = optimizejar(injarfile, outjarfile, None)
-        open(logfile, "wb").write("\n".join(log))
+        open(logfile, "wb").write(b"\n".join(log))
 
 def main():        
     MODE = sys.argv[1]
